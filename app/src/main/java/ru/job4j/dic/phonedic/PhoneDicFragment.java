@@ -28,23 +28,21 @@ public class PhoneDicFragment extends Fragment {
     private RecyclerView.Adapter<RecyclerView.ViewHolder> adapter;
     private static final int REQUEST_CODE_READ_CONTACTS = 1;
     private static boolean READ_CONTACTS_GRANTED = false;
-private EditText editTextFind;
+    private EditText editTextFind;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.phone_dic_fragment, container, false);
-        editTextFind=view.findViewById(R.id.editTextFind);
+        editTextFind = view.findViewById(R.id.editTextFind);
         final List<String> phones = new ArrayList<>();
         editTextFind.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
             }
 
             @Override
@@ -54,7 +52,7 @@ private EditText editTextFind;
                 String by = editTextFind.getText().toString();
                 Cursor cursor = getActivity().getContentResolver().query(
                         ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-                        new String[] {ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,
+                        new String[]{ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,
                                 ContactsContract.CommonDataKinds.Phone.NUMBER},
                         ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " like '%" + by + "%'",
                         null,
@@ -75,7 +73,6 @@ private EditText editTextFind;
         RecyclerView recycler = view.findViewById(R.id.phones);
         recycler.setHasFixedSize(true);
         recycler.setLayoutManager(new LinearLayoutManager(getContext()));
-
         adapter = new PhoneAdapter(phones);
         recycler.setAdapter(adapter);
         // получаем разрешения
@@ -91,9 +88,6 @@ private EditText editTextFind;
         if (READ_CONTACTS_GRANTED) {
             loadDic(phones);
         }
-
-
-
         return view;
     }
 
